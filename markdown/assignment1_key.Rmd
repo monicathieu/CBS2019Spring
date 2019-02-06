@@ -1,0 +1,55 @@
+---
+title: "Assignment 1 Key"
+author: "Intro to Programming in R"
+date: "Spring 2019"
+output:
+    html_document:
+        toc: true
+        toc_float: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Questions 1 and 3 are based on material not covered in class but rather require reading Chapters 4 and 8 in R for Everyone.
+
+# Question 1 (2 pt total)
+
+## Part 1 (1 pt)
+_What are the four main types of variables?_
+
+We're looking for the following, as described in R for Everyone:
+
+* numeric
+* character (strings, aka text)
+* date (POSIXct)
+* logical (`TRUE`, `FALSE`)
+
+We also accepted responses including vectors & dataframes.
+
+## Part 2 (1 pt)
+_What are two functions that can be used to determine a variable type?_
+
+We're looking for any two of the following:
+
+* `class()`
+* `typeof()` (Be aware that calling `typeof()` on a tibble or dataframe will _not_ tell you the data types of the individual columns!)
+* any of the `is.xyz()` functions, including `is.numeric()`, `is.character()`, etc.
+
+Note that determining the type of an existing variable is not the same as assigning a variable to a value with `<-` or `=`.
+
+# Question 2 (2 pt)
+_Create a vector of numbers from one to ten called numVec. Use the sum function to calculate the sum of this vector._
+
+# Question 3 (2 pt)
+_Write a function that has two arguments. If the first argument is bigger, return the sum of the numbers. If the second argument is bigger, return the product of the numbers._
+
+# Question 4 (1 pt)
+_What data type does `read_csv()` return?_
+
+# Question 5 (1 pt)
+_What data type does `read_excel()` return?_
+
+# Question 6 (2 pt)
+_Read the `acs_ny.csv` data from https://jaredlander.com/data/ . Display for the first 10 rows and the last 10 rows._
