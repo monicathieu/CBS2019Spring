@@ -10,7 +10,10 @@ output:
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
 ```
+
+In general, on homework assignments, there are many ways to write code to accomplish the same purpose. As long as your code satisfies the requirements outlined in the question prompt, we don't take points off for style, though we do ask that you try to write the cleanest code you can, to make things easier on yourself and on us.
 
 Questions 1 and 3 are based on material not covered in class but rather require reading Chapters 4 and 8 in R for Everyone.
 
@@ -40,16 +43,104 @@ We're looking for any two of the following:
 Note that determining the type of an existing variable is not the same as assigning a variable to a value with `<-` or `=`.
 
 # Question 2 (2 pt)
-_Create a vector of numbers from one to ten called numVec. Use the sum function to calculate the sum of this vector._
+_Create a vector of numbers from one to ten called `numVec`. Use the sum function to calculate the sum of this vector._
+
+The shortest way to do this is to use the `:` operator to create a vector counting by 1 from 1 to 10.
+
+```{r}
+numVec <- 1:10
+
+numVec
+```
+
+`:` already outputs a vector, so you don't need to put this inside of a `c()` call to create a vector. If you did, though, the code will still run.
+
+```{r}
+sum(numVec)
+```
+
+Many people created `numVec` doing the following, which works just as well, but is more verbose and prone to typos.
+
+```{r}
+numVec <- c(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
+```
+
+We don't recommend typing out numbers individually to initialize a vector, unless you can't use a shortcut function like `:` or `seq()` to generate the numbers you want, and you _must_ type them out manually.
 
 # Question 3 (2 pt)
 _Write a function that has two arguments. If the first argument is bigger, return the sum of the numbers. If the second argument is bigger, return the product of the numbers._
 
+```{r}
+sumOrProduct <- function(arg1, arg2) {
+    if (arg1 > arg2) {
+        return (arg1 + arg2)
+    } else {
+        return (arg1 * arg2)
+    } 
+}
+```
+
+When writing a function, _especially_ one that does different things depending on which arguments are fed in (usually using if-else statements), it's critical to test every possible case. **You must demonstrate that the code works in every possible branch of your if-else statement.**
+
+```{r}
+sumOrProduct(10, 20)
+
+sumOrProduct(20, 10)
+```
+
+We did not take off points for failing to test your function in both cases (first argument > second argument, _and_ first argument < second argument), if we read your code and saw that it would work correctly if you had tested it. However, in future assignments, we will take off points for not testing functions on every possible use case.
+
+We saw several instances of code where people wrote if-else code that did accomplish the instructions in the question prompt, but the code was not wrapped inside a function, like below.
+
+```{r}
+var1 <- 10
+var2 <- 20
+
+if (var1 > var2) {
+    var3 <- var1 + var2
+} else {
+    var3 <- var1 * var2
+} 
+
+var3
+```
+
+The question prompt requests that you create a function. Writing the code outside of a function like the chunk above will allow you to run the code once, but it won't let you call the code on any two numbers without manually changing the values of `var1` and `var2`. In these cases, we gave 1 point of partial credit.
+
 # Question 4 (1 pt)
 _What data type does `read_csv()` return?_
+
+`read_csv()` returns a tibble, which is a special sub-type of dataframe. We accepted tibble or dataframe.
 
 # Question 5 (1 pt)
 _What data type does `read_excel()` return?_
 
-# Question 6 (2 pt)
-_Read the `acs_ny.csv` data from https://jaredlander.com/data/ . Display for the first 10 rows and the last 10 rows._
+`read_excel()` also returns a tibble, which is a special sub-type of dataframe. Again, we accepted tibble or dataframe.
+
+
+# Question 6 (2 pt total)
+
+## Part 1 (1 pt)
+_Read the `acs_ny.csv` data from https://jaredlander.com/data/ ._
+
+There are many ways to read in this data. If we saw you successfully loaded the data in, with your data reading function of choice, we gave 1 point.
+
+```{r, message = FALSE}
+# In general, we recommend using the reading functions from readr
+acs_ny <- read_csv("https://jaredlander.com/data/acs_ny.csv")
+```
+
+## Part 2 (1 pt)
+_Display for the first 10 rows and the last 10 rows._
+The easiest and most flexible way to do this is using `head()` and `tail()`, as neither function depends on knowing exactly how many rows are in your tibble. However, we gave full credit for any command that did output the requested rows. Responses that only included the first 10 rows but not the last 10 rows received 0.5 pt.
+
+```{r}
+# Using the pipe here to demonstrate clean code, but you didn't have to do this
+acs_ny %>%
+    head(10)
+```
+
+```{r}
+acs_ny %>%
+    tail(10)
+```
