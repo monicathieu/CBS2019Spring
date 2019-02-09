@@ -1,0 +1,65 @@
+---
+title: "Assignment 2 Key"
+author: "Intro to Programming in R"
+date: "Spring 2019"
+output:
+    html_document:
+        toc: true
+        toc_float: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+```
+
+In general, on homework assignments, there are many ways to write code to accomplish the same purpose. As long as your code satisfies the requirements outlined in the question prompt, we don't take points off for style, though we do ask that you try to write the cleanest code you can, to make things easier on yourself and on us.
+
+This homework involves plotting and data manipulation. It requires the use of two new datasets, `starwars` and `flights`, which live in the `dplyr` and `nycflights13` packages respectively.
+
+# Question 1
+Load the `starwars` dataset from the `dplyr` package. Create a scatter plot of characters' heights (x-axis) against their masses (y-axis). Be sure to label the axes and give the graph a title.
+
+```{r}
+data(starwars, package = "dplyr")
+```
+
+```{r}
+starwars %>%
+    ggplot(aes(x = height, y = mass)) +
+    geom_point() +
+    labs(x = "Character height",
+         y = "Character mass",
+         title = "Height by mass of Star Wars characters")
+```
+
+
+# Question 2
+Create a histogram of starwars characters' birth year.
+
+```{r}
+starwars %>%
+    ggplot(aes(x = birth_year)) +
+    geom_histogram(bins = 20) +
+    labs(x = "Character birth year",
+         y = "Number of characters",
+         title = "Ages (sort of) of Star Wars characters")
+```
+
+# Question 3
+Create density plots of heights faceted by gender. Change the fill to something other than the default color, and use the theme theme_bw(). Be sure to let y-axis scales vary by gender.
+
+# Question 4
+Create a violin plot of characters' heights if they are of species type “Human”, “Droid”, “Wookiee”, or “Yoda’s species”. Use the economist theme in the ggthemes package.
+
+# Question 5
+Use the contains function to select columns from the flights dataset in the nycflights13 package, that contain the word "dep". Use starts_with to select columns that start with the letter "S". Read Chapter 12 if you are uncertain about these functions.
+
+# Question 6
+Calculate the mean and standard deviation of dep_delay, arr_delay, air_time and distance, for each origin, in the flights dataset. Be sure to account for missing (NA) values. Chapter 4 discusses ways to deal with NAs.
+
+# Question 7
+Use filter to return rows from the flights dataset that originate in JFK and depart in the afternoon.
+
+# Question 8
+Create a new column in the flights dataset showing the average speed, calculated as distance divided by air_time. Name the column "AvgSpeed". Use this column to calculate the average speed for flights departing each of the NYC airports.
